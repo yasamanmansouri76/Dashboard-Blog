@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <b-container fluid class="h-100">
     <slot />
-  </div>
+  </b-container>
 </template>
 <script>
 export default {

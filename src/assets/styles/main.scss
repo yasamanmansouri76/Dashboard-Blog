@@ -1,2 +1,37 @@
 @import "node_modules/bootstrap/scss/bootstrap.scss";
 @import "node_modules/bootstrap-vue/src/index.scss";
+@import "./variables.scss";
+
+body {
+  margin: 0px !important;
+}
+
+.bg-lighten-grey {
+  background: $color-lighten-grey;
+}
+
+.txt-grey {
+  color: $color-grey;
+}
+
+.txt-dark {
+  color: $color-dark;
+}
+
+a {
+  color: inherit;
+}
+
+.my-form {
+  label {
+    color: $color-dark;
+  }
+  .form-group {
+    margin-bottom: 25px;
+  }
+}
+
+.btn-blue {
+  background: $color-blue;
+  border-color: $color-blue;
+}
