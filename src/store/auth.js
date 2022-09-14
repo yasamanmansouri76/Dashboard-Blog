@@ -16,6 +16,12 @@ export default {
     },
   },
   actions: {
+    initUser(context) {
+      const token = localStorage.getItem("token");
+      if (token) {
+        context.commit("setUserToken", token);
+      }
+    },
     newUser(context, payload) {
       return api
         .post("/users", {
