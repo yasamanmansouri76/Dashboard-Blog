@@ -16,6 +16,26 @@ Vue.use(VeeValidate, {
   fieldsBagName: "veeFields",
 });
 
+const token = localStorage.getItem("token");
+if (token) {
+  store.commit("auth/setUserToken", token);
+}
+
+router.beforeEach((to, from, next) => {
+  if (to.matched.some((record) => record.meta.requiresAuth)) {
+    if (!token) {
+      next({
+        path: "/login",
+        query: { redirect: to.fullPath },
+      });
+    } else {
+      next();
+    }
+  } else {
+    next();
+  }
+});
+
 new Vue({
   router,
   store,
