@@ -1,6 +1,6 @@
 @import "node_modules/bootstrap/scss/bootstrap.scss";
 @import "node_modules/bootstrap-vue/src/index.scss";
-@import "./variables.scss";
+@import "@/assets/styles/variables.scss";
 
 body {
   margin: 0px !important;
@@ -8,6 +8,14 @@ body {
 
 .bg-lighten-grey {
   background: $color-lighten-grey;
+}
+
+.bg-dark {
+  background: $color-dark !important;
+}
+
+.bg-blue {
+  background: $color-blue;
 }
 
 .txt-grey {

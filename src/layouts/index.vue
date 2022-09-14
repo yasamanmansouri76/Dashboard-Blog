@@ -1,16 +1,26 @@
 <template>
-  <div>
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/login">Login</router-link> |
-      <router-link to="/register">Register</router-link>
+  <div class="h-100 d-flex flex-column">
+    <top-nav />
+    <div class="d-flex h-100">
+      <b-col col lg="2" class="p-0">
+        <side-bar />
+      </b-col>
+      <b-col col lg="10">
+        <slot />
+      </b-col>
     </div>
-    <slot />
   </div>
 </template>
 <script>
+import topNav from "@/components/layout/top-nav.vue";
+import sideBar from "@/components/layout/side-bar.vue";
+
 export default {
   name: "LayoutComponent",
+  components: {
+    topNav,
+    sideBar,
+  },
 };
 </script>
 

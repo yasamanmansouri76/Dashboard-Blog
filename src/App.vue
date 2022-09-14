@@ -18,10 +18,13 @@ export default {
   methods: {
     ...mapActions({
       initUser: "auth/initUser",
+      getUser: "auth/getUser",
     }),
   },
   created() {
-    this.initUser();
+    this.initUser().then(() => {
+      this.getUser();
+    });
   },
 };
 </script>

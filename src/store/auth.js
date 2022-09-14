@@ -3,16 +3,23 @@ import api from "@/server.js";
 export default {
   namespaced: true,
   state: {
-    userToken: "",
+    userToken: null,
+    userInfo: {},
   },
   getters: {
     userToken(state) {
       return state.userToken;
     },
+    userInfo(state) {
+      return state.userInfo;
+    },
   },
   mutations: {
     setUserToken(state, data) {
       state.userToken = data;
+    },
+    setUserInfo(state, data) {
+      state.userInfo = data;
     },
   },
   actions: {
@@ -28,14 +35,8 @@ export default {
           user: payload,
         })
         .then((response) => {
-          localStorage.setItem(
-            "token",
-            "Token" + " " + response.data.user.token
-          );
-          context.commit(
-            "setUserToken",
-            "Token" + " " + response.data.user.token
-          );
+          localStorage.setItem("token", response.data.user.token);
+          context.commit("setUserToken", response.data.user.token);
         });
     },
     loginUser(context, payload) {
@@ -44,15 +45,14 @@ export default {
           user: payload,
         })
         .then((response) => {
-          localStorage.setItem(
-            "token",
-            "Token" + " " + response.data.user.token
-          );
-          context.commit(
-            "setUserToken",
-            "Token" + " " + response.data.user.token
-          );
+          localStorage.setItem("token", response.data.user.token);
+          context.commit("setUserToken", response.data.user.token);
         });
+    },
+    getUser(context) {
+      return api.get("/user").then((response) => {
+        context.commit("setUserInfo", response.data.user);
+      });
     },
   },
 };

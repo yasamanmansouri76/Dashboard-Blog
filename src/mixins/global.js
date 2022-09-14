@@ -1,4 +1,11 @@
+import { mapGetters } from "vuex";
+
 export default {
+  computed: {
+    ...mapGetters({
+      userInfo: "auth/userInfo",
+    }),
+  },
   methods: {
     validateState(ref) {
       if (
