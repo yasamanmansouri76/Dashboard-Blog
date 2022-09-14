@@ -85,7 +85,11 @@ export default {
           })
           .catch((error) => {
             if (error.response.status === 403) {
-              alert("Login Faild! User name and/or Password is invalid");
+              this.showToast(
+                "User name and/or Password is invalid",
+                "Login Faild!",
+                "danger"
+              );
             }
             this.isLoginLoading = false;
           });

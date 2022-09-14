@@ -9,5 +9,12 @@ export default {
       }
       return null;
     },
+    showToast(message, title, variant) {
+      this.$bvToast.toast(message, {
+        title,
+        variant,
+        solid: true,
+      });
+    },
   },
 };
