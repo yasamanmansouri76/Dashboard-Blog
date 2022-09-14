@@ -38,5 +38,21 @@ export default {
           );
         });
     },
+    loginUser(context, payload) {
+      return api
+        .post("/users/login", {
+          user: payload,
+        })
+        .then((response) => {
+          localStorage.setItem(
+            "token",
+            "Token" + " " + response.data.user.token
+          );
+          context.commit(
+            "setUserToken",
+            "Token" + " " + response.data.user.token
+          );
+        });
+    },
   },
 };

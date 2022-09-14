@@ -48,6 +48,7 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
 import authLayout from "@/layouts/auth.vue";
 import formError from "@/components/shared/form-error.vue";
 
@@ -64,11 +65,30 @@ export default {
     formError,
   },
   methods: {
+    ...mapActions({
+      loginUser: "auth/loginUser",
+    }),
     onSubmit() {
       this.$validator.validateAll().then((result) => {
         if (!result) {
           return;
         }
+        this.isLoginLoading = true;
+        const payload = {
+          email: this.email,
+          password: this.password,
+        };
+        this.loginUser(payload)
+          .then(() => {
+            this.isLoginLoading = false;
+            this.$router.push({ path: "/" });
+          })
+          .catch((error) => {
+            if (error.response.status === 403) {
+              alert("Login Faild! User name and/or Password is invalid");
+            }
+            this.isLoginLoading = false;
+          });
       });
     },
   },
