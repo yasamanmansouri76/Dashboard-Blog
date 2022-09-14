@@ -54,5 +54,10 @@ export default {
         context.commit("setUserInfo", response.data.user);
       });
     },
+    logout(context) {
+      localStorage.removeItem("token");
+      context.commit("setUserToken", null);
+      context.commit("setUserInfo", {});
+    },
   },
 };

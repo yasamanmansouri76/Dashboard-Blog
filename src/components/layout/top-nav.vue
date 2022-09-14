@@ -14,7 +14,9 @@
 
         <b-navbar-nav class="ml-auto">
           <b-nav-form>
-            <b-button variant="outline-primary">Logout</b-button>
+            <b-button variant="outline-primary" @click="handleLogout"
+              >Logout</b-button
+            >
           </b-nav-form>
         </b-navbar-nav>
       </b-collapse>
@@ -22,7 +24,17 @@
   </div>
 </template>
 <script>
+import { mapActions } from "vuex";
+
 export default {
   name: "TopNavComponent",
+  methods: {
+    ...mapActions({
+      logout: "auth/logout",
+    }),
+    handleLogout() {
+      this.logout().then(() => this.$router.push({ name: "login" }));
+    },
+  },
 };
 </script>
