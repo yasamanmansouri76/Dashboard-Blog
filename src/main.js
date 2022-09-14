@@ -22,6 +22,7 @@ if (token) {
 }
 
 router.beforeEach((to, from, next) => {
+  const token = store.getters["auth/userToken"];
   if (to.matched.some((record) => record.meta.requiresAuth)) {
     if (!token) {
       next({

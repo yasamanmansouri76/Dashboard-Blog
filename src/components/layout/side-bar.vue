@@ -2,7 +2,7 @@
   <div class="my-sidebar bg-blue h-100 py-3">
     <h4 class="text-white font-weight-light px-3">Post</h4>
     <div class="d-flex flex-column">
-      <router-link class="text-white px-4 py-2" :to="{ name: 'home' }"
+      <router-link class="text-white px-4 py-2" :to="{ name: 'articles' }"
         >All Articles</router-link
       >
       <router-link class="text-white px-4 py-2" :to="{ name: 'login' }"
