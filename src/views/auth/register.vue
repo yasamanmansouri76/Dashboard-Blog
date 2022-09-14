@@ -7,7 +7,7 @@
           <b-form-input
             id="user"
             name="user"
-            v-model="user"
+            v-model="username"
             v-validate="{ required: true }"
             :state="validateState('user')"
             aria-describedby="user-feedback"
@@ -20,6 +20,7 @@
             id="email"
             name="email"
             v-model="email"
+            type="email"
             v-validate="{ required: true }"
             :state="validateState('email')"
             aria-describedby="email-feedback"
@@ -32,6 +33,7 @@
             id="password"
             name="password"
             v-model="password"
+            type="password"
             v-validate="{ required: true }"
             :state="validateState('password')"
             aria-describedby="password-feedback"
@@ -39,7 +41,13 @@
           />
           <form-error :errors-text="errors.collect('password')" />
         </b-form-group>
-        <b-button block class="btn-blue" @click="onSubmit">Register</b-button>
+        <b-button
+          block
+          class="btn-blue"
+          :disabled="isRegisterLoading"
+          @click="onSubmit"
+          >Register</b-button
+        >
         <span class="txt-dark mt-3 d-block">
           Already Registered?
           <router-link to="/login" class="font-weight-bold">Login</router-link>
@@ -50,6 +58,7 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
 import authLayout from "@/layouts/auth.vue";
 import formError from "@/components/shared/form-error.vue";
 
@@ -57,21 +66,36 @@ export default {
   name: "RegisterComponent",
   data() {
     return {
-      user: "",
+      username: "",
       email: "",
       password: "",
+      isRegisterLoading: false,
     };
   },
   components: {
     formError,
   },
   methods: {
+    ...mapActions({
+      newUser: "auth/newUser",
+    }),
     onSubmit() {
       this.$validator.validateAll().then((result) => {
         if (!result) {
           return;
         }
-        alert("Form submitted!");
+        this.isRegisterLoading = true;
+        const payload = {
+          username: this.username,
+          email: this.email,
+          password: this.password,
+        };
+        this.newUser(payload)
+          .then(() => {
+            this.isRegisterLoading = false;
+            this.$router.push({ path: "/" });
+          })
+          .catch(() => (this.isRegisterLoading = false));
       });
     },
   },
