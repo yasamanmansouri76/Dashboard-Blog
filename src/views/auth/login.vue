@@ -2,7 +2,7 @@
   <b-row class="align-items-center h-100 justify-content-center">
     <b-col col lg="3" sm="10">
       <b-form class="bg-lighten-grey p-3 my-form rounded">
-        <h1 class="text-center txt-grey py-3">Login</h1>
+        <h1 class="text-center txt-grey py-3 text-uppercase">Login</h1>
         <b-form-group label="Email" label-for="email">
           <b-form-input
             id="email"
