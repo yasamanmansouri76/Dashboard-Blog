@@ -13,6 +13,11 @@ const routes = [
     meta: { requiresAuth: true },
   },
   {
+    path: "/articles/add",
+    name: "addArticle",
+    component: () => import("@/views/articles/add.vue"),
+  },
+  {
     path: "/login",
     name: "login",
     component: () => import("@/views/auth/login.vue"),

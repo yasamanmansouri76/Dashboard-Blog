@@ -5,7 +5,7 @@
       <router-link class="text-white px-4 py-2" :to="{ name: 'articles' }"
         >All Articles</router-link
       >
-      <router-link class="text-white px-4 py-2" :to="{ name: 'login' }"
+      <router-link class="text-white px-4 py-2" :to="{ name: 'addArticle' }"
         >New Article</router-link
       >
     </div>
@@ -27,7 +27,7 @@ export default {
       text-decoration: none;
     }
   }
-  .router-link-active {
+  .router-link-exact-active {
     background: $color-soft-blue;
   }
 }
