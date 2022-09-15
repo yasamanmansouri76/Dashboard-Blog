@@ -18,6 +18,7 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
 import indexLayout from "@/layouts/index.vue";
 import postsList from "@/components/posts/posts-list.vue";
 
@@ -93,8 +94,19 @@ export default {
       return this.posts.length;
     },
   },
+  methods: {
+    ...mapActions({
+      getArticles: "articles/getArticles",
+    }),
+    loadArticles() {
+      this.getArticles().then((response) => {
+        console.log(response);
+      });
+    },
+  },
   created() {
     this.$emit("update:layout", indexLayout);
+    this.loadArticles();
   },
 };
 </script>
