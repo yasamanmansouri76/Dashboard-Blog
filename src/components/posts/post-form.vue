@@ -12,6 +12,7 @@
               :state="validateState('title')"
               aria-describedby="title-feedback"
               data-vv-as="title"
+              placeholder="Title"
             />
             <form-error :errors-text="errors.collect('title')" />
           </b-form-group>
@@ -24,6 +25,7 @@
               :state="validateState('description')"
               aria-describedby="description-feedback"
               data-vv-as="description"
+              placeholder="Description"
             />
             <form-error :errors-text="errors.collect('description')" />
           </b-form-group>
@@ -38,67 +40,58 @@
               :state="validateState('body')"
               aria-describedby="body-feedback"
               data-vv-as="body"
+              placeholder="Body"
             />
             <form-error :errors-text="errors.collect('body')" />
           </b-form-group>
         </b-col>
         <b-col col lg="4" sm="12">
-          <b-form-group label="Tags" label-for="tag">
-            <b-form-input
-              id="tag"
-              name="tag"
-              v-model="tag"
-              placeholder="New tag"
-              v-validate="{ required: true }"
-              :state="validateState('tag')"
-              aria-describedby="tag-feedback"
-              data-vv-as="tag"
-            />
-            <form-error :errors-text="errors.collect('tag')" />
-          </b-form-group>
-          <div class="border p-2 rounded tags-box">
-            <b-form-checkbox-group
-              v-model="post.tags"
-              :options="tags"
-              stacked
-              class="mb-3"
-              value-field="value"
-              text-field="text"
-            ></b-form-checkbox-group>
-          </div>
+          <tag-list v-model="post" />
         </b-col>
       </b-row>
-
-      <b-button variant="primary">Submit</b-button>
+      <b-button variant="primary" :disabled="loadingBtn" @click="handleSubmit">
+        Submit
+      </b-button>
     </b-form>
   </div>
 </template>
 
 <script>
 import formError from "@/components/shared/form-error.vue";
+import tagList from "@/components/posts/tag-list.vue";
 
 export default {
   name: "PostForm",
   data() {
     return {
-      tag: "",
-      tags: [
-        { text: "Orange", value: "orange" },
-        { text: "Apple", value: "apple" },
-        { text: "Pineapple", value: "pineapple" },
-        { text: "Grape", value: "grape" },
-      ],
       post: {
         title: "",
         description: "",
         body: "",
-        tags: [],
+        tagList: [],
       },
     };
   },
+  props: {
+    loadingBtn: {
+      type: Boolean,
+      default: false,
+      required: true,
+    },
+  },
   components: {
     formError,
+    tagList,
+  },
+  methods: {
+    handleSubmit() {
+      this.$validator.validateAll().then((result) => {
+        if (!result) {
+          return;
+        }
+        this.$emit("submit", this.post);
+      });
+    },
   },
 };
 </script>
-<style lang="scss"></style>

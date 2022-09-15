@@ -1,18 +1,35 @@
 <template>
   <b-row class="h-100 p-3 flex-column">
     <h1 class="mb-3">New Article</h1>
-    <post-form />
+    <post-form :loading-btn="isLoadingAdd" @submit="handleSubmit" />
   </b-row>
 </template>
 
 <script>
+import { mapActions } from "vuex";
 import indexLayout from "@/layouts/index.vue";
 import postForm from "@/components/posts/post-form.vue";
 
 export default {
   name: "AddArticleView",
+  data() {
+    return {
+      isLoadingAdd: false,
+    };
+  },
   components: {
     postForm,
+  },
+  methods: {
+    ...mapActions({
+      addArticle: "articles/addArticle",
+    }),
+    handleSubmit(post) {
+      this.addArticle(post).then(() => {
+        this.showToast("Article created successfuly", "Well done!", "success");
+        this.$router.push({ name: "articles" });
+      });
+    },
   },
   created() {
     this.$emit("update:layout", indexLayout);
