@@ -81,7 +81,7 @@ export default {
         this.loginUser(payload)
           .then(() => {
             this.isLoginLoading = false;
-            this.$router.push({ path: "/" });
+            this.$router.push({ name: "articles" });
           })
           .catch((error) => {
             if (error.response.status === 403) {

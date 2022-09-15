@@ -7,7 +7,11 @@ Vue.use(VueRouter);
 const routes = [
   {
     path: "/",
-    alias: "/articles",
+    redirect: "/articles",
+  },
+  {
+    path: "/articles",
+    alias: "/articles/page/:page",
     name: "articles",
     component: articles,
     meta: { requiresAuth: true },

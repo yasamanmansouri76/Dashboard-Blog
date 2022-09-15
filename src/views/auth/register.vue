@@ -93,7 +93,7 @@ export default {
         this.newUser(payload)
           .then(() => {
             this.isRegisterLoading = false;
-            this.$router.push({ path: "/" });
+            this.$router.push({ name: "articles" });
           })
           .catch(() => (this.isRegisterLoading = false));
       });
