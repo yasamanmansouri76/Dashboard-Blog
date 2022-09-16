@@ -10,8 +10,12 @@ const routes = [
     redirect: "/articles",
   },
   {
-    path: "/articles",
-    alias: "/articles/page/:page",
+    path: `/articles/page/${1}`,
+    redirect: "/articles",
+  },
+  {
+    path: "/articles/page/:page?",
+    alias: "/articles",
     name: "articles",
     component: articles,
     meta: { requiresAuth: true },

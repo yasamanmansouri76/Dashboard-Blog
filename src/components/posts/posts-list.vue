@@ -1,13 +1,34 @@
 <template>
   <div class="posts-list">
     <b-table
+      ref="table"
       :items="posts"
-      :per-page="perPage"
-      :current-page="currentPage"
       :thead-class="'bg-lighten-grey'"
+      :busy="isLoading"
+      :fields="fields"
+      primary-key="slug"
     >
-      <template #cell(created)="data">
-        {{ data.value }}
+      <template #head(index)> # </template>
+      <template #head(taList)> Tags </template>
+      <template #head(body)> Excerpt </template>
+      <template #head(createdAt)> Created </template>
+
+      <template #cell(index)="data">
+        {{ data.index + 1 }}
+      </template>
+      <template #cell(author)="data">
+        {{ data.value.username }}
+      </template>
+      <template #cell(body)="data">
+        {{ splitBodySentence(data.value) }}
+      </template>
+      <template #cell(tagList)="data">
+        <span v-for="(tag, index) in data.value" :key="index">
+          {{ tag }} ,
+        </span>
+      </template>
+      <template #cell(createdAt)="data">
+        {{ data.value | formatDate }}
         <b-dropdown
           right
           text="..."
@@ -32,6 +53,11 @@ export default {
       default: () => [],
       required: true,
     },
+    fields: {
+      type: Array,
+      default: () => [],
+      required: true,
+    },
     perPage: {
       type: Number,
       default: 0,
@@ -41,6 +67,21 @@ export default {
       type: Number,
       default: 1,
       required: true,
+    },
+    isLoading: {
+      type: Boolean,
+      default: false,
+      required: true,
+    },
+  },
+  watch: {
+    currentPage() {
+      this.$refs.table.refresh();
+    },
+  },
+  methods: {
+    splitBodySentence(body) {
+      return body.split(" ").slice(0, 20).join(" ");
     },
   },
 };

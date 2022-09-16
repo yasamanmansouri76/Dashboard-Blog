@@ -6,8 +6,12 @@ export default {
   getters: {},
   mutations: {},
   actions: {
-    getArticles() {
-      return api.get("/articles").then((response) => response);
+    getArticles(context, payload) {
+      return api
+        .get("/articles", {
+          params: payload,
+        })
+        .then((response) => response.data);
     },
     addArticle(context, payload) {
       return api

@@ -1,10 +1,16 @@
 import { mapGetters } from "vuex";
+import moment from "moment";
 
 export default {
   computed: {
     ...mapGetters({
       userInfo: "auth/userInfo",
     }),
+  },
+  filters: {
+    formatDate(date) {
+      return moment(String(date)).format("MMMM DD, YYYY");
+    },
   },
   methods: {
     validateState(ref) {
