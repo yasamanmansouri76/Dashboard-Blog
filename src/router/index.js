@@ -26,6 +26,11 @@ const routes = [
     component: () => import("@/views/articles/add.vue"),
   },
   {
+    path: "/articles/edit/:slug",
+    name: "editArticle",
+    component: () => import("@/views/articles/edit/_slug.vue"),
+  },
+  {
     path: "/login",
     name: "login",
     component: () => import("@/views/auth/login.vue"),

@@ -35,7 +35,15 @@
           variant="primary"
           class="m-2 ml-3 post-dropdown"
         >
-          <b-dropdown-item href="#">Edit</b-dropdown-item>
+          <b-dropdown-item
+            @click="
+              $router.push({
+                name: 'editArticle',
+                params: { slug: data.item.slug },
+              })
+            "
+            >Edit</b-dropdown-item
+          >
           <b-dropdown-divider></b-dropdown-divider>
           <b-dropdown-item
             v-b-modal="'modal-delete'"
