@@ -25,9 +25,11 @@ export default {
       addArticle: "articles/addArticle",
     }),
     handleSubmit(post) {
+      this.isLoadingAdd = true;
       this.addArticle(post).then(() => {
         this.showToast("Article created successfuly", "Well done!", "success");
         this.$router.push({ name: "articles" });
+        this.isLoadingAdd = false;
       });
     },
   },
