@@ -46,7 +46,7 @@
           </b-form-group>
         </b-col>
         <b-col col lg="4" sm="12">
-          <tag-list v-model="post" />
+          <tag-list-view v-model="post" />
         </b-col>
       </b-row>
       <b-button variant="primary" :disabled="loadingBtn" @click="handleSubmit">
@@ -58,7 +58,7 @@
 
 <script>
 import formError from "@/components/shared/form-error.vue";
-import tagList from "@/components/posts/tag-list.vue";
+import tagListView from "@/components/posts/tag-list.vue";
 
 export default {
   name: "PostForm",
@@ -78,10 +78,15 @@ export default {
       default: false,
       required: true,
     },
+    article: {
+      type: Object,
+      default: () => {},
+      required: false,
+    },
   },
   components: {
     formError,
-    tagList,
+    tagListView,
   },
   methods: {
     handleSubmit() {
@@ -92,6 +97,11 @@ export default {
         this.$emit("submit", this.post);
       });
     },
+  },
+  created() {
+    if (this.article) {
+      this.post = this.article;
+    }
   },
 };
 </script>
