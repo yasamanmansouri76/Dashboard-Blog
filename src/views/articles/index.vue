@@ -10,6 +10,7 @@
         :is-loading="isLoadingPosts"
         :fields="fields"
         class="mb-3"
+        @setItem="setDeletingItem"
       />
       <b-pagination
         v-model="currentPage"
@@ -20,6 +21,27 @@
         @change="handleChangePage"
       ></b-pagination>
     </div>
+    <b-modal
+      id="modal-delete"
+      ref="modalDelete"
+      centered
+      title="Delete Article"
+    >
+      <p class="my-4">Are you sure to delete article?</p>
+      <template #modal-footer="{ cancel }">
+        <b-button variant="outline-secondary" class="px-3" @click="cancel()">
+          No
+        </b-button>
+        <b-button
+          variant="danger"
+          class="px-3"
+          :disabled="isLoadingDelete"
+          @click="handleDeleteArticle()"
+        >
+          Yes
+        </b-button>
+      </template>
+    </b-modal>
   </b-row>
 </template>
 
@@ -41,6 +63,8 @@ export default {
       rows: 0,
       isLoadingPosts: false,
       fields: ["index", "title", "author", "tagList", "body", "createdAt"],
+      selectedItemSlug: null,
+      isLoadingDelete: false,
     };
   },
   computed: {
@@ -51,6 +75,7 @@ export default {
   methods: {
     ...mapActions({
       getArticles: "articles/getArticles",
+      deleteArticle: "articles/deleteArticle",
     }),
     handleChangePage(e) {
       this.$router.push({ path: `/articles/page/${e}` }).catch(() => {});
@@ -71,11 +96,24 @@ export default {
         this.rows = response.articlesCount;
       });
     },
+    setDeletingItem(slug) {
+      this.selectedItemSlug = slug;
+    },
+    handleDeleteArticle() {
+      this.isLoadingDelete = true;
+      this.deleteArticle(this.selectedItemSlug).then(() => {
+        this.isLoadingDelete = false;
+        this.$bvModal.hide("modal-delete");
+        this.handleChangePage(1);
+        this.getArticlesCount();
+        this.loadArticles();
+        this.showToast("Article deleted successfuly", "Well done!", "success");
+      });
+    },
   },
   created() {
     this.$emit("update:layout", indexLayout);
     this.currentPage = this.routePage;
-
     this.getArticlesCount();
     this.loadArticles();
   },

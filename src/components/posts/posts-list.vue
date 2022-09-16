@@ -37,7 +37,11 @@
         >
           <b-dropdown-item href="#">Edit</b-dropdown-item>
           <b-dropdown-divider></b-dropdown-divider>
-          <b-dropdown-item href="#">Delete</b-dropdown-item>
+          <b-dropdown-item
+            v-b-modal="'modal-delete'"
+            @click="setDeletingItem(data.item.slug)"
+            >Delete</b-dropdown-item
+          >
         </b-dropdown>
       </template>
     </b-table>
@@ -82,6 +86,9 @@ export default {
   methods: {
     splitBodySentence(body) {
       return body.split(" ").slice(0, 20).join(" ");
+    },
+    setDeletingItem(id) {
+      this.$emit("setItem", id);
     },
   },
 };

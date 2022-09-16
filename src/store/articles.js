@@ -20,5 +20,8 @@ export default {
         })
         .then((response) => response);
     },
+    deleteArticle(context, payload) {
+      return api.delete(`/articles/${payload}`).then((response) => response);
+    },
   },
 };
