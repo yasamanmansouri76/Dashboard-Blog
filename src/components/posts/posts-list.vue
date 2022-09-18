@@ -20,7 +20,7 @@
         {{ data.index + 1 }}
       </template>
       <template #cell(author)="data">
-        {{ data.value.username }}
+        {{ `@${data.value.username}` }}
       </template>
       <template #cell(body)="data">
         {{ splitBodySentence(data.value) }}

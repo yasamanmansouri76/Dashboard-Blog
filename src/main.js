@@ -5,9 +5,11 @@ import VeeValidate from "vee-validate";
 import router from "./router";
 import store from "./store";
 import globalMixin from "@/mixins/global.js";
+import alertManager from "@/mixins/alert-manager.js";
 import "@/assets/styles/main.scss";
 
 Vue.mixin(globalMixin);
+Vue.mixin(alertManager);
 
 Vue.use(BootstrapVue);
 Vue.use(IconsPlugin);

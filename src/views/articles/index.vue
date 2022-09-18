@@ -91,7 +91,6 @@ export default {
       };
       this.getArticles(payload).then((response) => {
         this.posts = response.articles;
-        this.posts = this.posts.concat(...this.posts);
         this.isLoadingPosts = false;
         this.isLoadingPage = false;
       });
@@ -109,10 +108,14 @@ export default {
       this.deleteArticle(this.selectedItemSlug).then(() => {
         this.isLoadingDelete = false;
         this.$bvModal.hide("modal-delete");
-        this.handleChangePage(1);
+        this.linkGen(1);
         this.getArticlesCount();
         this.loadArticles();
-        this.showToast("Article deleted successfuly", "Well done!", "success");
+        this.showAlert({
+          type: "success",
+          title: "",
+          message: "Article deleted successfuly",
+        });
       });
     },
   },

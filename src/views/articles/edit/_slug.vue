@@ -50,7 +50,11 @@ export default {
         slug: this.slug,
       };
       this.editArticle(payload).then(() => {
-        this.showToast("Article edited successfuly", "Well done!", "success");
+        this.showAlert({
+          type: "success",
+          title: "Well done!",
+          message: "Article updated successfuly",
+        });
         this.$router.push({ name: "articles" });
         this.isLoadingArticle = false;
       });

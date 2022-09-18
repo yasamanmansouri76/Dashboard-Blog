@@ -81,15 +81,20 @@ export default {
         this.loginUser(payload)
           .then(() => {
             this.isLoginLoading = false;
-            this.$router.push({ name: "articles" });
+            this.showAlert({
+              type: "success",
+              title: "Login Successfull!",
+              message: "Welcome to dashboard",
+            });
+            this.$router.push({ path: "/articles" });
           })
           .catch((error) => {
             if (error.response.status === 403) {
-              this.showToast(
-                "User name and/or Password is invalid",
-                "Login Faild!",
-                "danger"
-              );
+              this.showAlert({
+                type: "danger",
+                title: "Login Faild!",
+                message: "User name and/or Password is invalid",
+              });
             }
             this.isLoginLoading = false;
           });
