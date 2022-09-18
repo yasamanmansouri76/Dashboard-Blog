@@ -2,7 +2,7 @@
   <div class="post-form">
     <b-form class="my-form">
       <b-row>
-        <b-col col lg="8" sm="12">
+        <b-col lg="8" sm="12">
           <b-form-group label="Title" label-for="title">
             <b-form-input
               id="title"
@@ -45,11 +45,16 @@
             <form-error :errors-text="errors.collect('body')" />
           </b-form-group>
         </b-col>
-        <b-col col lg="4" sm="12">
+        <b-col lg="4" sm="12">
           <tag-list-view v-model="post" />
         </b-col>
       </b-row>
-      <b-button variant="primary" :disabled="loadingBtn" @click="handleSubmit">
+      <b-button
+        class="mt-2"
+        variant="primary"
+        :disabled="loadingBtn"
+        @click="handleSubmit"
+      >
         Submit
       </b-button>
     </b-form>

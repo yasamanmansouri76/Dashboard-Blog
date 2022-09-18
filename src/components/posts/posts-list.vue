@@ -6,7 +6,10 @@
       :thead-class="'bg-lighten-grey'"
       :busy="isLoading"
       :fields="fields"
+      :responsive="true"
       primary-key="slug"
+      sticky-header="530px"
+      head-variant="light"
     >
       <template #head(index)> # </template>
       <template #head(taList)> Tags </template>

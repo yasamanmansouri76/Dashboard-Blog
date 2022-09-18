@@ -1,10 +1,10 @@
 <template>
-  <b-row class="h-100 p-3 flex-column">
+  <b-col lg="12" class="h-100 p-3 post-list-view">
     <h1 class="mb-3">All Posts</h1>
     <div v-if="isLoadingPage" class="text-center">
       <b-spinner variant="primary" label="Text Centered"></b-spinner>
     </div>
-    <div v-else>
+    <div v-else class="table-container">
       <posts-list
         :posts="posts"
         :is-loading="isLoadingPosts"
@@ -17,6 +17,7 @@
         :number-of-pages="numberOfPages"
         use-router
         align="center"
+        class="pb-0"
       ></b-pagination-nav>
     </div>
     <b-modal
@@ -40,7 +41,7 @@
         </b-button>
       </template>
     </b-modal>
-  </b-row>
+  </b-col>
 </template>
 
 <script>
@@ -90,6 +91,7 @@ export default {
       };
       this.getArticles(payload).then((response) => {
         this.posts = response.articles;
+        this.posts = this.posts.concat(...this.posts);
         this.isLoadingPosts = false;
         this.isLoadingPage = false;
       });
@@ -128,3 +130,13 @@ export default {
   },
 };
 </script>
+<style lang="scss">
+.post-list-view {
+  h1 {
+    height: 6%;
+  }
+  .table-container {
+    height: 87%;
+  }
+}
+</style>

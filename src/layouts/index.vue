@@ -1,11 +1,11 @@
 <template>
   <div class="h-100 d-flex flex-column">
     <top-nav />
-    <div class="d-flex h-100">
-      <b-col col lg="2" class="p-0">
+    <div class="d-flex h-100 flex-xl-row flex-column">
+      <b-col xl="2" lg="12" class="p-0">
         <side-bar />
       </b-col>
-      <b-col col lg="10">
+      <b-col xl="10" lg="12">
         <slot />
       </b-col>
     </div>
