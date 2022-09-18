@@ -1,25 +1,23 @@
 <template>
   <b-row class="h-100 p-3 flex-column">
     <h1 class="mb-3">All Posts</h1>
-    <div v-if="isLoadingPosts">loading</div>
-    <div>
+    <div v-if="isLoadingPage" class="text-center">
+      <b-spinner variant="primary" label="Text Centered"></b-spinner>
+    </div>
+    <div v-else>
       <posts-list
         :posts="posts"
-        :per-page="perPage"
-        :current-page="currentPage"
         :is-loading="isLoadingPosts"
         :fields="fields"
         class="mb-3"
         @setItem="setDeletingItem"
       />
-      <b-pagination
-        v-model="currentPage"
-        :total-rows="rows"
-        :per-page="perPage"
-        aria-controls="my-table"
+      <b-pagination-nav
+        :link-gen="linkGen"
+        :number-of-pages="numberOfPages"
+        use-router
         align="center"
-        @change="handleChangePage"
-      ></b-pagination>
+      ></b-pagination-nav>
     </div>
     <b-modal
       id="modal-delete"
@@ -57,19 +55,23 @@ export default {
   },
   data() {
     return {
-      perPage: 3,
+      perPage: 10,
       currentPage: 1,
       posts: [],
-      rows: 0,
+      rows: 1,
       isLoadingPosts: false,
       fields: ["index", "title", "author", "tagList", "body", "createdAt"],
       selectedItemSlug: null,
       isLoadingDelete: false,
+      isLoadingPage: true,
     };
   },
   computed: {
     routePage() {
       return this.$route.params.page ? +this.$route.params.page : 1;
+    },
+    numberOfPages() {
+      return Math.ceil(this.rows / this.perPage);
     },
   },
   methods: {
@@ -77,8 +79,8 @@ export default {
       getArticles: "articles/getArticles",
       deleteArticle: "articles/deleteArticle",
     }),
-    handleChangePage(e) {
-      this.$router.push({ path: `/articles/page/${e}` }).catch(() => {});
+    linkGen(pageNum) {
+      return pageNum === 1 ? "/articles" : `/articles/page/${pageNum}`;
     },
     loadArticles() {
       this.isLoadingPosts = true;
@@ -89,11 +91,12 @@ export default {
       this.getArticles(payload).then((response) => {
         this.posts = response.articles;
         this.isLoadingPosts = false;
+        this.isLoadingPage = false;
       });
     },
     getArticlesCount() {
       this.getArticles().then((response) => {
-        this.rows = response.articlesCount;
+        this.rows = +response.articlesCount;
       });
     },
     setDeletingItem(slug) {

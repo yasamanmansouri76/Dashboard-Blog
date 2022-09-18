@@ -70,25 +70,10 @@ export default {
       default: () => [],
       required: true,
     },
-    perPage: {
-      type: Number,
-      default: 0,
-      required: true,
-    },
-    currentPage: {
-      type: Number,
-      default: 1,
-      required: true,
-    },
     isLoading: {
       type: Boolean,
       default: false,
       required: true,
-    },
-  },
-  watch: {
-    currentPage() {
-      this.$refs.table.refresh();
     },
   },
   methods: {
