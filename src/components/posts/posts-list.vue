@@ -10,7 +10,11 @@
       primary-key="slug"
       sticky-header="530px"
       head-variant="light"
+      show-empty
     >
+      <template #empty>
+        <h6 class="text-center mt-3">There is no item!</h6>
+      </template>
       <template #head(index)> # </template>
       <template #head(taList)> Tags </template>
       <template #head(body)> Excerpt </template>

@@ -13,6 +13,7 @@
         @setItem="setDeletingItem"
       />
       <b-pagination-nav
+        v-if="posts.lenght > 0"
         :link-gen="linkGen"
         :number-of-pages="numberOfPages"
         use-router
