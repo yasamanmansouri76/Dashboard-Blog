@@ -1,4 +1,4 @@
-import api from "@/server.js";
+import { api } from "@/services/interceptors";
 
 export default {
   namespaced: true,

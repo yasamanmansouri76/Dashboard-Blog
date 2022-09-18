@@ -78,26 +78,15 @@ export default {
           email: this.email,
           password: this.password,
         };
-        this.loginUser(payload)
-          .then(() => {
-            this.isLoginLoading = false;
-            this.showAlert({
-              type: "success",
-              title: "Login Successfull!",
-              message: "Welcome to dashboard",
-            });
-            this.$router.push({ path: "/articles" });
-          })
-          .catch((error) => {
-            if (error.response.status === 403) {
-              this.showAlert({
-                type: "danger",
-                title: "Login Faild!",
-                message: "User name and/or Password is invalid",
-              });
-            }
-            this.isLoginLoading = false;
+        this.loginUser(payload).then(() => {
+          this.isLoginLoading = false;
+          this.showAlert({
+            type: "success",
+            title: "Login Successfull!",
+            message: "Welcome to dashboard",
           });
+          this.$router.push({ path: "/articles" });
+        });
       });
     },
   },

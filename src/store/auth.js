@@ -1,9 +1,9 @@
-import api from "@/server.js";
+import { api } from "@/services/interceptors";
 
 export default {
   namespaced: true,
   state: {
-    userToken: null,
+    userToken: localStorage.getItem("token") || null,
     userInfo: {},
   },
   getters: {
@@ -12,6 +12,9 @@ export default {
     },
     userInfo(state) {
       return state.userInfo;
+    },
+    loggedIn(state) {
+      return state.token !== null;
     },
   },
   mutations: {
@@ -37,6 +40,7 @@ export default {
         .then((response) => {
           localStorage.setItem("token", response.data.user.token);
           context.commit("setUserToken", response.data.user.token);
+          return response;
         });
     },
     loginUser(context, payload) {

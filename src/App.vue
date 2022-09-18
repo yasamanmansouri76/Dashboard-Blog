@@ -6,25 +6,12 @@
   </div>
 </template>
 <script>
-import { mapActions } from "vuex";
-
 export default {
   name: "AppComponent",
   data() {
     return {
       layout: "div",
     };
-  },
-  methods: {
-    ...mapActions({
-      initUser: "auth/initUser",
-      getUser: "auth/getUser",
-    }),
-  },
-  created() {
-    this.initUser().then(() => {
-      this.getUser();
-    });
   },
 };
 </script>

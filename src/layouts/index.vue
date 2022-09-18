@@ -16,6 +16,7 @@
 import topNav from "@/components/layout/top-nav.vue";
 import sideBar from "@/components/layout/side-bar.vue";
 import AlertBox from "@/components/shared/alert-box.vue";
+import { mapActions } from "vuex";
 
 export default {
   name: "LayoutComponent",
@@ -23,6 +24,17 @@ export default {
     topNav,
     sideBar,
     AlertBox,
+  },
+  methods: {
+    ...mapActions({
+      initUser: "auth/initUser",
+      getUser: "auth/getUser",
+    }),
+  },
+  created() {
+    this.initUser().then(() => {
+      this.getUser();
+    });
   },
 };
 </script>

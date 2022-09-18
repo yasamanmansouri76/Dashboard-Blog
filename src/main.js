@@ -7,6 +7,7 @@ import store from "./store";
 import globalMixin from "@/mixins/global.js";
 import alertManager from "@/mixins/alert-manager.js";
 import "@/assets/styles/main.scss";
+import { setup } from "./services/interceptors.js";
 
 Vue.mixin(globalMixin);
 Vue.mixin(alertManager);
@@ -23,17 +24,18 @@ if (token) {
   store.commit("auth/setUserToken", token);
 }
 
+setup();
+
 router.beforeEach((to, from, next) => {
   const token = store.getters["auth/userToken"];
-  if (to.matched.some((record) => record.meta.requiresAuth)) {
-    if (!token) {
-      next({
-        path: "/login",
-        query: { redirect: to.fullPath },
-      });
-    } else {
-      next();
-    }
+  const needAuthentication = to.matched.some(
+    (record) => record.meta.requiresAuth
+  );
+  if (needAuthentication && !token) {
+    next({
+      path: "/login",
+      query: { redirect: to.fullPath },
+    });
   } else {
     next();
   }

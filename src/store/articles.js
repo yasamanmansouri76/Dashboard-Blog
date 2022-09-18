@@ -1,4 +1,4 @@
-import api from "@/server.js";
+import { api } from "@/services/interceptors";
 
 export default {
   namespaced: true,
@@ -14,24 +14,20 @@ export default {
         .then((response) => response.data);
     },
     addArticle(context, payload) {
-      return api
-        .post("/articles", {
-          article: payload,
-        })
-        .then((response) => response);
+      return api.post("/articles", {
+        article: payload,
+      });
     },
     deleteArticle(context, payload) {
-      return api.delete(`/articles/${payload}`).then((response) => response);
+      return api.delete(`/articles/${payload}`);
     },
     getArticleDetails(context, payload) {
       return api.get(`/articles/${payload}`).then((response) => response.data);
     },
     editArticle(context, payload) {
-      return api
-        .put(`/articles/${payload.slug}`, {
-          article: payload.article,
-        })
-        .then((response) => response);
+      return api.put(`/articles/${payload.slug}`, {
+        article: payload.article,
+      });
     },
   },
 };

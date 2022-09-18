@@ -1,7 +1,7 @@
 <template>
   <div>
     <b-navbar toggleable="lg" class="bg-dark">
-      <b-navbar-brand href="#" class="text-white font-weight-light"
+      <b-navbar-brand class="text-white font-weight-light"
         >Arvan Challenge</b-navbar-brand
       >
 
@@ -14,7 +14,10 @@
 
         <b-navbar-nav class="ml-auto">
           <b-nav-form>
-            <b-button variant="outline-primary" @click="handleLogout"
+            <b-button
+              variant="outline-primary"
+              class="btn-logout"
+              @click="handleLogout"
               >Logout</b-button
             >
           </b-nav-form>
@@ -38,3 +41,12 @@ export default {
   },
 };
 </script>
+
+<style lang="scss">
+@import "@/assets/styles/variables.scss";
+
+.btn-logout {
+  border-color: $color-mid-blue !important;
+  color: $color-mid-blue !important;
+}
+</style>

@@ -24,11 +24,13 @@ const routes = [
     path: "/articles/add",
     name: "addArticle",
     component: () => import("@/views/articles/add.vue"),
+    meta: { requiresAuth: true },
   },
   {
     path: "/articles/edit/:slug",
     name: "editArticle",
     component: () => import("@/views/articles/edit/_slug.vue"),
+    meta: { requiresAuth: true },
   },
   {
     path: "/login",
