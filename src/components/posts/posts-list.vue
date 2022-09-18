@@ -41,6 +41,7 @@
           text="..."
           variant="primary"
           class="m-2 ml-3 post-dropdown"
+          :disabled="data.item.author.username !== userInfo.username"
         >
           <b-dropdown-item
             @click="
